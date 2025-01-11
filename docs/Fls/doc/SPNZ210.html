@@ -1,0 +1,425 @@
+---
+layout: default
+title: SPNZ210
+nav_order: 5
+parent: Flash Driver
+---
+{% raw %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta name="generator" content="LibreOffice 24.2.7.2 (Linux)"/>
+  <meta name="created" content="00:00:00"/>
+  <meta name="changed" content="00:00:00"/>
+</head>
+<body>
+<h1></h1>
+<p><i>Hercules™ F021</i></p>
+<p><i>Flash API</i></p>
+<p><b>Errata</b></p>
+<p>Literature Number: SPNZ210</p>
+<p>July 2013</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i><b>Contents</b></i></p>
+<p><b>1</b></p>
+<p><b>All Errata Listed With Software Version Numbers</b></p>
+<p>...................................................................</p>
+<p><b>4</b></p>
+<p><b>2</b></p>
+<p><b>Revision History</b></p>
+<p>.................................................................................................................</p>
+<p><b>5</b></p>
+<p><b>3</b></p>
+<p><b>Known Design Exceptions to Function Specifications</b></p>
+<p>.............................................................</p>
+<p><b>5</b></p>
+<p>2</p>
+<p><i>Table of Contents</i></p>
+<p>SPNZ210– July 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><b>List of Tables</b></p>
+<p>1</p>
+<p>Overview</p>
+<p>.....................................................................................................................</p>
+<p>4</p>
+<p>2</p>
+<p>Revision History</p>
+<p>.............................................................................................................</p>
+<p>5</p>
+<p>3</p>
+<p>Known Design Exceptions to Function Specifications</p>
+<p>.................................................................</p>
+<p>5</p>
+<p>3</p>
+<p>SPNZ210– July 2013</p>
+<p><i>List of Tables</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Errata</i></p>
+<p><i>SPNZ210 –July 2013</i></p>
+<p><i><b>Hercules™ F021 Flash API</b></i></p>
+<p>This document describes the known exceptions to the functional</p>
+<p>specifications for the software.</p>
+<p><b>1</b></p>
+<p><b>All Errata Listed With Software Version Numbers</b></p>
+<p><b>Table 1. Overview</b></p>
+<p><b>Advisory ID</b></p>
+<p><b>v01.50.00</b></p>
+<p><b>v01.51.00</b></p>
+<p><b>v02.00.00</b></p>
+<p><b>v02.00.01</b></p>
+<p>SDOCM00086402</p>
+<p>X</p>
+<p>-</p>
+<p>-</p>
+<p>-</p>
+<p>SDOCM00086405</p>
+<p>X</p>
+<p>-</p>
+<p>NA</p>
+<p>NA</p>
+<p>SDOCM00094147</p>
+<p>X</p>
+<p>X</p>
+<p>-</p>
+<p>-</p>
+<p>SDOCM00102084</p>
+<p>NA</p>
+<p>NA</p>
+<p>X</p>
+<p>-</p>
+<p>SDOCM00102399</p>
+<p>-</p>
+<p>-</p>
+<p>X</p>
+<p>-</p>
+<p>LEGEND: X = Advisory applies to this version, NA = Not Applicable to this version of the library, - = Advisory does not affect this</p>
+<p>version</p>
+<p>4</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p>SPNZ210– July 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><i>Revision History</i></p>
+<p><b>2</b></p>
+<p><b>Revision History</b></p>
+<p>This software errata revision history highlights the technical</p>
+<p>changes made from the previous to the</p>
+<p>current revision.</p>
+<p><b>Table 2. Revision History</b></p>
+<p><b>Advisory Changes in Advisory List</b></p>
+<p><b>Advisory ID</b></p>
+<p>SDOCM00086402, SDOCM00086405, SDOCM00094147, SDOCM00102084,</p>
+<p>Added advisory(s)</p>
+<p>SDOCM00102399</p>
+<p>Removed advisory(s)</p>
+<p>None</p>
+<p>Modified advisory(s)</p>
+<p>None</p>
+<p>Other</p>
+<p>None</p>
+<p><b>3</b></p>
+<p><b>Known Design Exceptions to Function Specifications</b></p>
+<p><b>Table 3. Known Design Exceptions to Function Specifications</b></p>
+<p><b>Title</b></p>
+<p>......................................................................................................................................</p>
+<p><b>Page</b></p>
+<p><b>SDOCM00086402</b> — Fapi_doMarginRead() does not read all</p>
+<p>requested data</p>
+<p>..................................................</p>
+<p>6</p>
+<p><b>SDOCM00086405</b> — Fapi_UserDefinedFunctions.c needs FSM unlock/lock sequence for FSM_SECTOR/1/2 writes</p>
+<p>....</p>
+<p>7</p>
+<p><b>SDOCM00094147</b> — Incorrect read in Verify functions in ECC regions on LE devices</p>
+<p>........................................</p>
+<p>8</p>
+<p><b>SDOCM00102084</b> —Typo in CGT.CCS.H in GNU attribute check</p>
+<p>................................................................</p>
+<p>9</p>
+<p><b>SDOCM00102399</b> — FEDACSDIS and FEDACSDIS2 are missing from Fapi_FmcRegistersType definition</p>
+<p>..............</p>
+<p>10</p>
+<p>5</p>
+<p>SPNZ210– July 2013</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><b>SDOCM00086402<i></b> — Fapi_doMarginRead() does not read all</i></p>
+<p><i>requested data</i></p>
+<p>www.ti.com</p>
+<p><b>SDOCM00086402</b></p>
+<p><i><b>Fapi_doMarginRead() does not read all requested data</b></i></p>
+<p><b>Severity</b></p>
+<p>S2 - Major</p>
+<p><b>Expected Behavior</b></p>
+<p>To read all</p>
+<p>data for the given range.</p>
+<p><b>Issue</b></p>
+<p>The function Fapi_doMarginRead() only returns 3/4 of the data requested on ECC</p>
+<p>regions.</p>
+<p><b>Conditions</b></p>
+<p>Using this function on ECC region will</p>
+<p>exhibit this behavior.</p>
+<p><b>Implications</b></p>
+<p>Wrong data or invalid reads may occur.</p>
+<p><b>Workaround(s)</b></p>
+<p>None</p>
+<p>6</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p>SPNZ210– July 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><b>SDOCM00086405<i></b> — Fapi_UserDefinedFunctions.c needs FSM unlock/lock sequence for FSM_SECTOR/1/2</i></p>
+<p><i>writes</i></p>
+<p><b>SDOCM00086405</b></p>
+<p><i><b>Fapi_UserDefinedFunctions.c needs FSM unlock/lock sequence for</b></i></p>
+<p><i><b>FSM_SECTOR/1/2 writes</b></i></p>
+<p><b>Severity</b></p>
+<p>S3 - Minor</p>
+<p><b>Expected Behavior</b></p>
+<p>Set sectors enabled for programming and erasing.</p>
+<p><b>Issue</b></p>
+<p>The example versions of the user defined functions Fapi_setupEepromSectorEnable()</p>
+<p>and Fapi_setupBankSectorEnable() does not show unlock the registers</p>
+<p>FSM_SECTOR/1/2.</p>
+<p><b>Conditions</b></p>
+<p>When trying to do an erase a bank after it has already been erased once after power on</p>
+<p>reset.</p>
+<p><b>Implications</b></p>
+<p>The bank will</p>
+<p>not erase.</p>
+<p><b>Workaround(s)</b></p>
+<p>As this is intended for the customer to modify, the unlock code can be added by them.</p>
+<p>Fapi_GlobalInit.m_poFlashControlRegisters-</p>
+<p>&gt;FsmWrEna.FSM_WR_ENA_BITS.WR_ENA</p>
+<p>= 0x5U;</p>
+<p>/* Unlock the regtisters */</p>
+<p>Fapi_GlobalInit.m_poFlashControlRegisters-</p>
+<p>&gt;FsmWrEna.FSM_WR_ENA_BITS.WR_ENA</p>
+<p>= 0x2U; /* Lock the registers */</p>
+<p>7</p>
+<p>SPNZ210– July 2013</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><b>SDOCM00094147<i></b> — Incorrect read in Verify functions in ECC regions on LE devices</i></p>
+<p>www.ti.com</p>
+<p><b>SDOCM00094147</b></p>
+<p><i><b>Incorrect read in Verify functions in ECC regions on LE devices</b></i></p>
+<p><b>Severity</b></p>
+<p>S2 - Major</p>
+<p><b>Expected Behavior</b></p>
+<p>Verification will</p>
+<p>work on ECC regions on Little Endian devices.</p>
+<p><b>Issue</b></p>
+<p>The read functions, Fapi_doVerify(), Fapi_doPsaVerify(), and Fapi_calculatePsa() will</p>
+<p>fail</p>
+<p>on Little Endian devices in the ECC regions do to a byte swap issue.</p>
+<p><b>Conditions</b></p>
+<p>When trying to use the functions Fapi_doVerify(), Fapi_doPsaVerify(), and</p>
+<p>Fapi_calculatePsa() on ECC regions on Little Endian devices.</p>
+<p><b>Implications</b></p>
+<p>This will</p>
+<p>cause false failures for Fapi_doVerify() and Fapi_doPsaVerify() and cause</p>
+<p>incorrect return value for Fapi_calculatePsa() on ECC regions on Little Endian devices.</p>
+<p><b>Workaround(s)</b></p>
+<p>For the function Fapi_doVerify(), use the byte variant Fapi_doVerifyByByte().</p>
+<p>For the functions Fapi_doPsaVerify() and Fapi_calculatePsa(), none.</p>
+<p>8</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p>SPNZ210– July 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><b>SDOCM00102084<i></b> — Typo in CGT.CCS.H in GNU attribute check</i></p>
+<p><b>SDOCM00102084</b></p>
+<p><i><b>Typo in CGT.CCS.H in GNU attribute check</b></i></p>
+<p><b>Severity</b></p>
+<p>S3 - Minor</p>
+<p><b>Expected Behavior</b></p>
+<p>if --gcc option is enabled, ATTRIBUTE_PACKED will</p>
+<p>be defined.</p>
+<p><b>Issue</b></p>
+<p>In this code segment in CGT.CCS.h, __TI_GNU_ATTRIBUTE_SUPPORT__ is missing</p>
+<p>the R:</p>
+<p>#if defined(__TI_GNU_ATTIBUTE_SUPPORT__)</p>
+<p>/* --gcc option enabled so we can specify this */</p>
+<p>#define ATTRIBUTE_PACKED</p>
+<p>__attribute__((packed))</p>
+<p>#else</p>
+<p><b>Conditions</b></p>
+<p>On CCS compilers, ATTRIBUTE_PACKED will</p>
+<p>always be an empty definition.</p>
+<p><b>Implications</b></p>
+<p>On builds expecting --gcc option to use attributes defined in code, enums will</p>
+<p>not be</p>
+<p>packed if the compile option to pack enums is not explicitly set.</p>
+<p><b>Workaround(s)</b></p>
+<p>Add the R to __TI_GNU_ATTIBUTE_SUPPORT__.</p>
+<p>9</p>
+<p>SPNZ210– July 2013</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><b>SDOCM00102399<i></b> — FEDACSDIS and FEDACSDIS2 are missing from Fapi_FmcRegistersType definition</i></p>
+<p>www.ti.com</p>
+<p><b>SDOCM00102399</b></p>
+<p><i><b>FEDACSDIS and FEDACSDIS2 are missing from Fapi_FmcRegistersType definition</b></i></p>
+<p><b>Severity</b></p>
+<p>S3 - Minor</p>
+<p><b>Expected Behavior</b></p>
+<p>It is expected theat Fapi_FmcRegistersType contains all</p>
+<p>registers defined in the devices</p>
+<p>TRM and SPNA148/</p>
+<p><b>Issue</b></p>
+<p>In the register update for v2.00.00, these registers were unintentionally removed.</p>
+<p><b>Conditions</b></p>
+<p>The registers do not exist in the Fapi_FmcRegistersType.</p>
+<p><b>Implications</b></p>
+<p>User cannot reference the FEDACSDIS and FEDACSDIS2 registers through the API</p>
+<p>reference.</p>
+<p><b>Workaround(s)</b></p>
+<p>Directly address the registers.</p>
+<p>10</p>
+<p><i>Hercules™ F021 Flash API</i></p>
+<p>SPNZ210– July 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><b>IMPORTANT NOTICE</b></p>
+<p>Texas Instruments Incorporated and its subsidiaries (TI) reserve the right to make corrections, enhancements, improvements and other</p>
+<p>changes to its semiconductor products and services per JESD46, latest issue, and to discontinue any product or service per JESD48, latest</p>
+<p>issue. Buyers should obtain the latest relevant information before placing orders and should verify that such information is current and</p>
+<p>complete. All</p>
+<p>semiconductor products (also referred to herein as “components”) are sold subject to TI’s terms and conditions of sale</p>
+<p>supplied at the time of order acknowledgment.</p>
+<p>TI warrants performance of its components to the specifications applicable at the time of sale, in accordance with the warranty in TI’s terms</p>
+<p>and conditions of sale of semiconductor products. Testing and other quality control</p>
+<p>techniques are used to the extent TI deems necessary</p>
+<p>to support this warranty. Except where mandated by applicable law, testing of all</p>
+<p>parameters of each component is not necessarily</p>
+<p>performed.</p>
+<p>TI assumes no liability for applications assistance or the design of Buyers’</p>
+<p>products. Buyers are responsible for their products and</p>
+<p>applications using TI components. To minimize the risks associated with Buyers’</p>
+<p>products and applications, Buyers should provide</p>
+<p>adequate design and operating safeguards.</p>
+<p>TI does not warrant or represent that any license, either express or implied, is granted under any patent right, copyright, mask work right, or</p>
+<p>other intellectual</p>
+<p>property right relating to any combination, machine, or process in which TI components or services are used. Information</p>
+<p>published by TI regarding third-party products or services does not constitute a license to use such products or services or a warranty or</p>
+<p>endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual</p>
+<p>property of the</p>
+<p>third party, or a license from TI under the patents or other intellectual</p>
+<p>property of TI.</p>
+<p>Reproduction of significant portions of TI information in TI data books or data sheets is permissible only if reproduction is without alteration</p>
+<p>and is accompanied by all</p>
+<p>associated warranties, conditions, limitations, and notices. TI is not responsible or liable for such altered</p>
+<p>documentation. Information of third parties may be subject to additional</p>
+<p>restrictions.</p>
+<p>Resale of TI components or services with statements different from or beyond the parameters stated by TI for that component or service</p>
+<p>voids all</p>
+<p>express and any implied warranties for the associated TI component or service and is an unfair and deceptive business practice.</p>
+<p>TI is not responsible or liable for any such statements.</p>
+<p>Buyer acknowledges and agrees that it is solely responsible for compliance with all</p>
+<p>legal, regulatory and safety-related requirements</p>
+<p>concerning its products, and any use of TI components in its applications, notwithstanding any applications-related information or support</p>
+<p>that may be provided by TI. Buyer represents and agrees that it has all</p>
+<p>the necessary expertise to create and implement safeguards which</p>
+<p>anticipate dangerous consequences of failures, monitor failures and their consequences, lessen the likelihood of failures that might cause</p>
+<p>harm and take appropriate remedial</p>
+<p>actions. Buyer will</p>
+<p>fully indemnify TI and its representatives against any damages arising out of the use</p>
+<p>of any TI components in safety-critical</p>
+<p>applications.</p>
+<p>In some cases, TI components may be promoted specifically to facilitate safety-related applications. With such components, TI’s goal</p>
+<p>is to</p>
+<p>help enable customers to design and create their own end-product solutions that meet applicable functional</p>
+<p>safety standards and</p>
+<p>requirements. Nonetheless, such components are subject to these terms.</p>
+<p>No TI components are authorized for use in FDA Class III (or similar life-critical</p>
+<p>medical</p>
+<p>equipment) unless authorized officers of the parties</p>
+<p>have executed a special</p>
+<p>agreement specifically governing such use.</p>
+<p>Only those TI components which TI has specifically designated as military grade or “enhanced plastic” are designed and intended for use in</p>
+<p>military/aerospace applications or environments. Buyer acknowledges and agrees that any military or aerospace use of TI components</p>
+<p>which have<i><b> not</b></i> been so designated is solely at the Buyer's risk, and that Buyer is solely responsible for compliance with all</p>
+<p>legal</p>
+<p>and</p>
+<p>regulatory requirements in connection with such use.</p>
+<p>TI has specifically designated certain components as meeting ISO/TS16949 requirements, mainly for automotive use. In any case of use of</p>
+<p>non-designated products, TI will</p>
+<p>not be responsible for any failure to meet ISO/TS16949.</p>
+<p><b>Products</b></p>
+<p><b>Applications</b></p>
+<p>Audio</p>
+<p>www.ti.com/audio</p>
+<p>Automotive and Transportation</p>
+<p>www.ti.com/automotive</p>
+<p>Amplifiers</p>
+<p>amplifier.ti.com</p>
+<p>Communications and Telecom</p>
+<p>www.ti.com/communications</p>
+<p>Data Converters</p>
+<p>dataconverter.ti.com</p>
+<p>Computers and Peripherals</p>
+<p>www.ti.com/computers</p>
+<p>DLP® Products</p>
+<p>www.dlp.com</p>
+<p>Consumer Electronics</p>
+<p>www.ti.com/consumer-apps</p>
+<p>DSP</p>
+<p>dsp.ti.com</p>
+<p>Energy and Lighting</p>
+<p>www.ti.com/energy</p>
+<p>Clocks and Timers</p>
+<p>www.ti.com/clocks</p>
+<p>Industrial</p>
+<p>www.ti.com/industrial</p>
+<p>Interface</p>
+<p>interface.ti.com</p>
+<p>Medical</p>
+<p>www.ti.com/medical</p>
+<p>Logic</p>
+<p>logic.ti.com</p>
+<p>Security</p>
+<p>www.ti.com/security</p>
+<p>Power Mgmt</p>
+<p>power.ti.com</p>
+<p>Space, Avionics and Defense</p>
+<p>www.ti.com/space-avionics-defense</p>
+<p>Microcontrollers</p>
+<p>microcontroller.ti.com</p>
+<p>Video and Imaging</p>
+<p>www.ti.com/video</p>
+<p>RFID</p>
+<p>www.ti-rfid.com</p>
+<p>OMAP Applications Processors</p>
+<p>www.ti.com/omap</p>
+<p><b>TI E2E Community</b></p>
+<p>e2e.ti.com</p>
+<p>Wireless Connectivity</p>
+<p>www.ti.com/wirelessconnectivity</p>
+<p>Mailing Address: Texas Instruments, Post Office Box 655303, Dallas, Texas 75265</p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+</body>
+</html>
+{% endraw %}

@@ -1,0 +1,920 @@
+---
+layout: default
+title: SPNA148
+nav_order: 3
+parent: Flash Driver
+---
+{% raw %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta name="generator" content="LibreOffice 24.2.7.2 (Linux)"/>
+  <meta name="created" content="00:00:00"/>
+  <meta name="changed" content="00:00:00"/>
+</head>
+<body>
+<h1></h1>
+<p><i>Application Report</i></p>
+<p><i>SPNA148–May 2013</i></p>
+<p><i><b>Advanced F021 Flash API Erase/Program Usage</b></i></p>
+<p><i>John R. Hall</i></p>
+<p><b>ABSTRACT</b></p>
+<p>This application report gives the user of the F021 Flash API the ability to write program and erase code in</p>
+<p>a way that is optimized to their applications.</p>
+<p><b>Contents</b></p>
+<p>1</p>
+<p>Introduction</p>
+<p>..................................................................................................................</p>
+<p>2</p>
+<p>2</p>
+<p>Flash Registers Used</p>
+<p>.......................................................................................................</p>
+<p>2</p>
+<p>3</p>
+<p>Example Usage</p>
+<p>.............................................................................................................</p>
+<p>5</p>
+<p>4</p>
+<p>References</p>
+<p>.................................................................................................................</p>
+<p>11</p>
+<p><b>List of Figures</b></p>
+<p>1</p>
+<p>Flash Address Register (FADDR) [offset = FFF8 7110h]</p>
+<p>..............................................................</p>
+<p>2</p>
+<p>2</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE0) [offset = FFF8 7120h]</p>
+<p>............................</p>
+<p>3</p>
+<p>3</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE1) [offset = FFF8 7124h]</p>
+<p>............................</p>
+<p>3</p>
+<p>4</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE2) [offset = FFF8 7128h]</p>
+<p>............................</p>
+<p>3</p>
+<p>5</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE3) [offset = FFF8 712Ch]</p>
+<p>...........................</p>
+<p>3</p>
+<p>6</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE4) [offset = FFF8 7130h]</p>
+<p>............................</p>
+<p>3</p>
+<p>7</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE5) [offset = FFF8 7134h]</p>
+<p>............................</p>
+<p>3</p>
+<p>8</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE6) [offset = FFF8 7138h]</p>
+<p>............................</p>
+<p>3</p>
+<p>9</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE7) [offset = FFF8 713Ch]</p>
+<p>...........................</p>
+<p>3</p>
+<p>10</p>
+<p>Flash Wide Programming Write Data ECC Register - 288-Bit Bank (FWPWRITE_ECC) [offset = FFF8</p>
+<p>7140h]</p>
+<p>........................................................................................................................</p>
+<p>4</p>
+<p>11</p>
+<p>Flash Wide Programming Write Data ECC Register - 144-Bit Bank (FWPWRITE_ECC) [offset = FFF8</p>
+<p>7140h]</p>
+<p>........................................................................................................................</p>
+<p>4</p>
+<p>12</p>
+<p>Flash Wide Programming Write Data ECC Register - 72-Bit Bank (FWPWRITE_ECC) [offset = FFF8</p>
+<p>7140h]</p>
+<p>........................................................................................................................</p>
+<p>4</p>
+<p>13</p>
+<p>Flash State Machine Command Register (FSM_COMMAND) [offset = FFF8 720Ch]</p>
+<p>............................</p>
+<p>5</p>
+<p>14</p>
+<p>Flash State Machine Command Execute Register (FSM_EXECUTE) [offset = FFF8 72B4h]</p>
+<p>...................</p>
+<p>5</p>
+<p>15</p>
+<p>Recommended Command Execution Flow</p>
+<p>..............................................................................</p>
+<p>7</p>
+<p><b>List of Tables</b></p>
+<p>1</p>
+<p>Additional</p>
+<p>Flash Control</p>
+<p>Registers</p>
+<p>.......................................................................................</p>
+<p>2</p>
+<p>2</p>
+<p>Flash Address Register (FADDR) Field Descriptions</p>
+<p>..................................................................</p>
+<p>2</p>
+<p>3</p>
+<p>Flash Wide Programming Write Data Register (FWPWRITE0) Field Descriptions</p>
+<p>................................</p>
+<p>4</p>
+<p>4</p>
+<p>Flash Wide Programming Write Data ECC Register (FWPWRITE_ECC) Field Descriptions</p>
+<p>....................</p>
+<p>4</p>
+<p>5</p>
+<p>Flash State Machine Command Register (FSM_COMMAND) Field Descriptions</p>
+<p>.................................</p>
+<p>5</p>
+<p>6</p>
+<p>Flash State Machine Command Register (FSM_COMMAND) Field Descriptions</p>
+<p>.................................</p>
+<p>5</p>
+<p>All</p>
+<p>trademarks are the property of their respective owners.</p>
+<p>1</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Introduction</i></p>
+<p>www.ti.com</p>
+<p><b>1</b></p>
+<p><b>Introduction</b></p>
+<p>The 65nm Flash Technology used on Hercules devices generally requires the use of the F021 Flash API</p>
+<p>to do program and erase operations. Since these functions need to cover all</p>
+<p>possible uses, they are</p>
+<p>generic, and not the most efficient functions available for all</p>
+<p>applications. Therefore, this document is</p>
+<p>designed to allow the user to write erase and program functions that are optimized for their application</p>
+<p>needs. The F021 Flash API is still</p>
+<p>required for Flash initialization and bank selection. For recommended</p>
+<p>erase and program operation flows, see the<i> F021 Flash API Reference Guide</i> (SPNU501).</p>
+<p><b>NOTE:</b></p>
+<p><i><b>This document applies to all versions of the F021 Flash API starting with v2.00.00.</b></i></p>
+<p><b>2</b></p>
+<p><b>Flash Registers Used</b></p>
+<p>In addition to the registers listed in the<i> F021 Flash Module</i> chapter in the device-specific technical</p>
+<p>reference manual, Table 1 lists registers specifically needed for program and erase operations.</p>
+<p><b>Table 1. Additional Flash Control Registers</b></p>
+<p><b>Offset</b></p>
+<p><b>Acronym</b></p>
+<p><b>Register Description</b></p>
+<p><b>Section</b></p>
+<p>FFF8 7110</p>
+<p>FADDR</p>
+<p>The absolute address of the data that the CPU would use to</p>
+<p>Section 2.1</p>
+<p>access the location.</p>
+<p>FFF8 7120</p>
+<p>FWPWRITE0</p>
+<p>WPDATA[31: 00]</p>
+<p>Section 2.2</p>
+<p>FFF8 7124</p>
+<p>FWPWRITE1</p>
+<p>WPDATA[63:32]</p>
+<p>Section 2.2</p>
+<p>FFF8 7128</p>
+<p>FWPWRITE2</p>
+<p>WPDATA[95:64]</p>
+<p>Section 2.2</p>
+<p>FFF8 712C</p>
+<p>FWPWRITE3</p>
+<p>WPDATA[127:96]</p>
+<p>Section 2.2</p>
+<p>FFF8 7130</p>
+<p>FWPWRITE4</p>
+<p>WPDATA[159:128]</p>
+<p>Section 2.2</p>
+<p>FFF8 7134</p>
+<p>FWPWRITE5</p>
+<p>WPDATA[191:160]</p>
+<p>Section 2.2</p>
+<p>FFF8 7138</p>
+<p>FWPWRITE6</p>
+<p>WPDATA[223:192]</p>
+<p>Section 2.2</p>
+<p>FFF8 713C</p>
+<p>FWPWRITE7</p>
+<p>WPDATA[255:224]</p>
+<p>Section 2.2</p>
+<p>FFF8 7140</p>
+<p>FWPWRITE_ECC</p>
+<p>Contains the ECC bits for the FWPWRITE7:0 registers</p>
+<p>Section 2.3</p>
+<p>FFF8 720C</p>
+<p>FSM_COMMAND</p>
+<p>The command to be executed</p>
+<p>Section 2.4</p>
+<p>FFF8 72B4</p>
+<p>FSM_EXECUTE</p>
+<p>Execute the command in the FSM_COMMAND register</p>
+<p>Section 2.5</p>
+<p><i><b>2.1</b></i></p>
+<p><i><b>Flash Address Register (FADDR)</b></i></p>
+<p>This register contains the absolute address of the location to be programmed, or area to be erased. For</p>
+<p>FSM operations, this register can contain the main Flash, data Flash or Customer OTP addresses. The</p>
+<p>ECC regions at 0xF01x_xxxx or 0xF02x_xxxx are illegal</p>
+<p>regions because the ECC programs must be</p>
+<p>done using the address of the data that ECC protects and the FWPWRITE_ECC register. FADDR is used</p>
+<p>by Program and Erase commands.</p>
+<p>The Flash address register is shown in Figure 1 and described in Table 2.</p>
+<p><b>Figure 1. Flash Address Register (FADDR) [offset = FFF8 7110h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>ADDR</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode with FLOCK=any value</p>
+<p><b>Table 2. Flash Address Register (FADDR) Field Descriptions</b></p>
+<p><b>Bit</b></p>
+<p><b>Field</b></p>
+<p><b>Value</b></p>
+<p><b>Description</b></p>
+<p>31:0</p>
+<p>ADDR</p>
+<p>CPU address to be</p>
+<p>Absolute address of the data that the CPU would use to access the location.</p>
+<p>operated on by the</p>
+<p>command</p>
+<p>2</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p>SPNA148–May 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><i>Flash Registers Used</i></p>
+<p><i><b>2.2</b></i></p>
+<p><i><b>Flash Wide Programming Write Data Register (FWPWRITE0-7)</b></i></p>
+<p>The Flash wide programming write data register is shown in Figure 2 through Figure 9 and described in</p>
+<p>Table 3.</p>
+<p><b>Figure 2. Flash Wide Programming Write Data Register (FWPWRITE0) [offset = FFF8 7120h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[31:00]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 3. Flash Wide Programming Write Data Register (FWPWRITE1) [offset = FFF8 7124h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[63:32]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 4. Flash Wide Programming Write Data Register (FWPWRITE2) [offset = FFF8 7128h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[95:64]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 5. Flash Wide Programming Write Data Register (FWPWRITE3) [offset = FFF8 712Ch]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[127:96]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 6. Flash Wide Programming Write Data Register (FWPWRITE4) [offset = FFF8 7130h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[159:128]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 7. Flash Wide Programming Write Data Register (FWPWRITE5) [offset = FFF8 7134h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[191:160]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 8. Flash Wide Programming Write Data Register (FWPWRITE6) [offset = FFF8 7138h]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[223:192]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Figure 9. Flash Wide Programming Write Data Register (FWPWRITE7) [offset = FFF8 713Ch]</b></p>
+<p>31</p>
+<p>0</p>
+<p>WPDATA[255:224]</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p>3</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Flash Registers Used</i></p>
+<p>www.ti.com</p>
+<p><b>Table 3. Flash Wide Programming Write Data Register (FWPWRITE0) Field Descriptions</b></p>
+<p><b>Bit</b></p>
+<p><b>Field</b></p>
+<p><b>Value</b></p>
+<p><b>Description</b></p>
+<p>255:0</p>
+<p>WPDATA</p>
+<p>Data to be</p>
+<p>This register contains the data to program into the flash memory. Each write will</p>
+<p>set data bits and</p>
+<p>[255:0]</p>
+<p>programmed</p>
+<p>another internal</p>
+<p><i><b>byte enable bit</b></i> for each byte to be written by the FSM. The FWPWRITE register is</p>
+<p>set to all</p>
+<p>ones after writing to the FADDR register or when the FSM completes an operation.</p>
+<p>For 128-144-bit banks, only FWPWRITE0-3 are used during programming. FWPWRITE4-7 are</p>
+<p>unused. For 64-72-bit banks, use only FWPWRITE0-1 are used during programming.</p>
+<p>Unused bits can be written and read but they will</p>
+<p>not be part of the bank operations.</p>
+<p><b>NOTE:</b></p>
+<p>Do not write to this register while a FSM operation is active.</p>
+<p><i><b>2.3</b></i></p>
+<p><i><b>Flash Wide Programming Write Data ECC Register (FWPWRITE_ECC)</b></i></p>
+<p>The Flash wide programming write ECC register is shown in Figure 10 through Figure 12 and</p>
+<p>described in Table 4.</p>
+<p><b>Figure 10. Flash Wide Programming Write Data ECC Register - 288-Bit Bank (FWPWRITE_ECC)</b></p>
+<p><b>[offset = FFF8 7140h]</b></p>
+<p>31</p>
+<p>24</p>
+<p>23</p>
+<p>16</p>
+<p>15</p>
+<p>8</p>
+<p>7</p>
+<p>0</p>
+<p>ECC for Bytes 7:0</p>
+<p>ECC for Bytes 15:8</p>
+<p>ECC for Bytes 23:16</p>
+<p>ECC for Bytes 31:24</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode with FLOCK=any value</p>
+<p><b>Figure 11. Flash Wide Programming Write Data ECC Register - 144-Bit Bank (FWPWRITE_ECC)</b></p>
+<p><b>[offset = FFF8 7140h]</b></p>
+<p>31</p>
+<p>24</p>
+<p>23</p>
+<p>16</p>
+<p>15</p>
+<p>0</p>
+<p>ECC for Bytes 7:0</p>
+<p>ECC for Bytes 15:8</p>
+<p>Reserved</p>
+<p>RWP</p>
+<p>RWP=FF</p>
+<p>FF_FFFF</p>
+<p>h</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode with FLOCK=any value</p>
+<p><b>Figure 12. Flash Wide Programming Write Data ECC Register - 72-Bit Bank (FWPWRITE_ECC)</b></p>
+<p><b>[offset = FFF8 7140h]</b></p>
+<p>31</p>
+<p>24</p>
+<p>23</p>
+<p>0</p>
+<p>ECC for Bytes 7:0</p>
+<p>Reserved</p>
+<p>RWP</p>
+<p>RWP=FFF</p>
+<p>F_FFFFh</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode with FLOCK=any value</p>
+<p><b>Table 4. Flash Wide Programming Write Data ECC Register (FWPWRITE_ECC) Field Descriptions</b></p>
+<p><b>Bit</b></p>
+<p><b>Field</b></p>
+<p><b>Value</b></p>
+<p><b>Description</b></p>
+<p>31:0</p>
+<p>ECC</p>
+<p>ECC Data to be</p>
+<p>This register contains the ECC bits for the FWPWRITE7:0 registers. The location of the ECC</p>
+<p>[31:0]</p>
+<p>programmed</p>
+<p>bits corresponding to the data depends on the device configuration. The three supported</p>
+<p>configurations are shown above.</p>
+<p>Unused bits can be written and read but they will</p>
+<p>not be part of the bank operations.</p>
+<p>This register is an extension of the FWPWRITE register. Do not write to this register while a</p>
+<p>FSM operation is active. This register is set to all</p>
+<p>ones just like the FWPWRITEx registers.</p>
+<p>4</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p>SPNA148–May 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><i>Example Usage</i></p>
+<p><i><b>2.4</b></i></p>
+<p><i><b>Flash State Machine Command Register (FSM_COMMAND)</b></i></p>
+<p>The Flash state machine command register is shown in Figure 13 and described in Table 5.</p>
+<p><b>Figure 13. Flash State Machine Command Register (FSM_COMMAND) [offset = FFF8 720Ch]</b></p>
+<p>31</p>
+<p>6</p>
+<p>5</p>
+<p>4</p>
+<p>3</p>
+<p>2</p>
+<p>1</p>
+<p>0</p>
+<p>Reserved</p>
+<p>FSM_CMD</p>
+<p>R-0</p>
+<p>RWP</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Table 5. Flash State Machine Command Register (FSM_COMMAND) Field Descriptions</b></p>
+<p><b>Bit</b></p>
+<p><b>Field</b></p>
+<p><b>Value</b></p>
+<p><b>Description</b></p>
+<p>31:6</p>
+<p>Reserved</p>
+<p>0</p>
+<p>These are reserved bits</p>
+<p>5:0</p>
+<p>FSM_CMD</p>
+<p>Refer to the supported commands listed in Appendix A of<i> F021 Flash API Reference Guide</i></p>
+<p>(SPNU501). Writes to this register are blocked if the state machine is busy. The only</p>
+<p>exception is to write the suspend command.</p>
+<p><i><b>2.5</b></i></p>
+<p><i><b>Flash State Machine Command Execute Register (FSM_EXECUTE)</b></i></p>
+<p>The Flash state machine command execute register is shown in Figure 14 and described in Table 6.</p>
+<p><b>Figure 14. Flash State Machine Command Execute Register (FSM_EXECUTE) [offset = FFF8 72B4h]</b></p>
+<p>31</p>
+<p>20</p>
+<p>19</p>
+<p>18</p>
+<p>17</p>
+<p>16</p>
+<p>Reserved</p>
+<p>SUSPEND_NOW</p>
+<p>R-0</p>
+<p>RWP-1010</p>
+<p>15</p>
+<p>5</p>
+<p>4</p>
+<p>3</p>
+<p>2</p>
+<p>1</p>
+<p>0</p>
+<p>Reserved</p>
+<p>FSMEXECUTE</p>
+<p>R-0</p>
+<p>RWP-01010</p>
+<p>LEGEND: -<i>n</i> = value after reset, R=Read, WP=Write in Privilege Mode</p>
+<p><b>Table 6. Flash State Machine Command Register (FSM_COMMAND) Field Descriptions</b></p>
+<p><b>Bit</b></p>
+<p><b>Field</b></p>
+<p><b>Value</b></p>
+<p><b>Description</b></p>
+<p>31:20</p>
+<p>Reserved</p>
+<p>0</p>
+<p>These are reserved bits</p>
+<p>19:16</p>
+<p>SUSPEND_NOW</p>
+<p>0101</p>
+<p>Writing a 5 to this register will</p>
+<p>suspend the Program or Erase sector command. Writes to</p>
+<p>this register are ignored unless the FSM is busy with one of these commands. This field</p>
+<p>resets to ‘1010’</p>
+<p>when the FSM enters the standby state where it waits for the next</p>
+<p>command. It will</p>
+<p>not retain the written value for long. The Bank erase command and every</p>
+<p>command except those two commands above are not suspendable and will</p>
+<p>ignore the</p>
+<p>suspend command. A suspend operation will</p>
+<p>exit the FSM with the proper setup and hold</p>
+<p>times for the various modes.</p>
+<p>15:5</p>
+<p>Reserved</p>
+<p>0</p>
+<p>These are reserved bits</p>
+<p>4:0</p>
+<p>FSMEXECUTE</p>
+<p>01010</p>
+<p>To invoke a FSM command this register must be written with a value of 10101. This register</p>
+<p>is reset back to 01010 by the FSM upon completion of the command operation. Writes to</p>
+<p>this register are ignored while the FSM is busy. All</p>
+<p>others registers must be set up before</p>
+<p>writing to this command. Writing a 15h to this field is the last step to starting an FSM</p>
+<p>operation.</p>
+<p><b>3</b></p>
+<p><b>Example Usage</b></p>
+<p>The following examples show some typically use cases in writing code using the Flash Memory Controller</p>
+<p>registers. The example code segments make use of the following framework code. For API functions used</p>
+<p>in these examples, see the<i> F021 Flash API Reference Guide</i> (SPNU501). For proper initialization of the</p>
+<p>device prior to any Flash operations, see the device-specific initialization document. All</p>
+<p>FMC register</p>
+<p>writes require the device to be in a privilege state.</p>
+<p>5</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Example Usage</i></p>
+<p>www.ti.com</p>
+<p>#include “F021.h”</p>
+<p>int main (void)</p>
+<p>{</p>
+<p>Fapi_StatusType oReturnCheck = Fapi_Status_Success;</p>
+<p>FwpWriteByteAccessorType</p>
+<p>* oFwpWriteByteAccessor</p>
+<p>= FWPWRITE_BYTE_ACCESSOR_ADDRESS;</p>
+<p>FwpWriteByteAccessorType</p>
+<p>* oFwpWriteEccByteAccessor = FWPWRITE_ECC_BYTE_ACCESSOR_ADDRESS;</p>
+<p>FwpWriteDWordAccessorType * oFwpWriteDWordAccessor</p>
+<p>= FWPWRITE_DWORD_ACCESSOR_ADDRESS;</p>
+<p>uint8 au8MainDataBuffer[16] = {0x78, 0x17, 0x19, 0x2E, 0x0A, 0xB9, 0x11, 0x70,</p>
+<p>0x5F, 0xC1, 0x9C, 0xFD, 0x54, 0x51, 0xED, 0x86};</p>
+<p>uint32 u32Index;</p>
+<p>/*</p>
+<p>For proper initialization of the device prior to any Flash</p>
+<p>operations,</p>
+<p>see the device-specific initialization document.</p>
+<p>Assumes, unless otherwise noted, device has 144bit wide Flash Banks.</p>
+<p>*/</p>
+<p>oReturnCheck = Fapi_initializeFlashBanks(180);</p>
+<p>/* Example code is assuming operating</p>
+<p>frequency of 180 MHz */</p>
+<p>if((oReturnCheck == Fapi_Status_Success) &amp;&amp;</p>
+<p>(FLASH_CONTROL_REGISTER-&gt;FmStat.FMSTAT_BITS.Busy != Fapi_Status_FsmBusy))</p>
+<p>{</p>
+<p>oReturnCheck = Fapi_setActiveFlashBank(Fapi_FlashBank0);</p>
+<p>/* Place specific example code here */</p>
+<p>/* Wait for FSM to finish */</p>
+<p>while(FLASH_CONTROL_REGISTER-&gt;FmStat.FMSTAT_BITS.Busy == Fapi_Status_FsmBusy);</p>
+<p>/* Check the FSM Status to see if there were no errors */</p>
+<p>if (FLASH_CONTROL_REGISTER-&gt;FmStat.u32Register != 0)</p>
+<p>{</p>
+<p>/* Put Error handling code here */</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>6</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p>SPNA148–May 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>Start</p>
+<p>Done</p>
+<p>Load FSM_COMMAND register field </p>
+<p>FSM_CMD with Fapi_ClearStatus</p>
+<p><i>For Erase and Program commands, </i></p>
+<p><i>load FADDR register with </i></p>
+<p><i>appropriate address</i></p>
+<p><b>CHECK_FSM_READY_BUSY </b></p>
+<p><i><b>=</b></i>= <i>Fapi_Status_FsmReady</i></p>
+<p>Yes</p>
+<p>No</p>
+<p>Load FSM_EXECUTE register field </p>
+<p>FSM_EXECUTE with 0x15</p>
+<p><i>For Program command, load </i></p>
+<p><i>FWPWRITEx register(s) with </i></p>
+<p><i>appropriate data values</i></p>
+<p>Load FSM_EXECUTE register field </p>
+<p>FSM_EXECUTE with 0x15</p>
+<p>Load FSM_COMMAND register field </p>
+<p>FSM_CMD with one of these </p>
+<p>commands: <i>Fapi_ProgramData, </i></p>
+<p><i>Fapi_EraseSector, Fapi_EraseBank</i></p>
+<p>www.ti.com</p>
+<p><i>Example Usage</i></p>
+<p><i><b>3.1</b></i></p>
+<p><i><b>Typical Command Execution Flow</b></i></p>
+<p>Figure 15 shows the typical</p>
+<p>flow for issuing an erase or program command.</p>
+<p><b>Figure 15. Recommended Command Execution Flow</b></p>
+<p>7</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Example Usage</i></p>
+<p>www.ti.com</p>
+<p><i><b>3.2</b></i></p>
+<p><i><b>Programming Operations</b></i></p>
+<p><b>3.2.1</b></p>
+<p><b>Programming a Single Byte</b></p>
+<p>The following code segement will</p>
+<p>write a single byte to the address specified.</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 1U;</p>
+<p>/* Disable Level 1 Protection */</p>
+<p>/* Enable all sectors of current bank for erase and program.</p>
+<p>For EEPROM banks with more</p>
+<p>than 16 sectors, this must be 0xFFFF */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register = 0xFFFF;</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 0U;</p>
+<p>/* Enable Level 1 Protection */</p>
+<p>/*Unlock FSM registers for writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x5U;</p>
+<p>/* Set command to &quot;Clear the Status Register&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ClearStatus;</p>
+<p>/* Execute the Clear Status command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* Write address to FADDR register */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register = 0x0100U;</p>
+<p>/* Placing byte at address 0x0102 */</p>
+<p>oFwpWriteByteAccessor[2] = 0xA5;</p>
+<p>/* Set command to &quot;Program&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ProgramData;</p>
+<p>/* Execute the Program command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* re-lock FSM registers to prevent writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x2U;</p>
+<p><b>3.2.2</b></p>
+<p><b>Programming 128-Bit Data and 16-Bit ECC</b></p>
+<p>The following code segement will</p>
+<p>write 16 bytes starting at the 128-bit aligned address specified.</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 1U;</p>
+<p>/* Disable Level 1 Protection */</p>
+<p>/* Enable all sectors of current bank for erase and program.</p>
+<p>For EEPROM banks with more</p>
+<p>than 16 sectors, this must be 0xFFFF */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register = 0xFFFF;</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 0U;</p>
+<p>/* Enable Level 1 Protection */</p>
+<p>/*Unlock FSM registers for writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x5U;</p>
+<p>/* Set command to &quot;Clear the Status Register&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ClearStatus;</p>
+<p>/* Execute the Clear Status command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* Write address to FADDR register */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register = 0x0100U;</p>
+<p>/* Placing bytes at address 0x0100 - 0x010F */</p>
+<p>8</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p>SPNA148–May 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><i>Example Usage</i></p>
+<p>for(u32Index=0;u32Index&lt;16;u32Index++)</p>
+<p>{</p>
+<p>oFwpWriteByteAccessor[u32Index] = au8MainDataBuffer[u32Index];</p>
+<p>}</p>
+<p>/* Supply the address where ECC is being calculated */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuAddr.u32Register</p>
+<p>= 0x0100;</p>
+<p>#if defined(_LITTLE_ENDIAN)</p>
+<p>/* Supply the lower 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[1];</p>
+<p>/* Supply the upper 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[0];</p>
+<p>#else</p>
+<p>/* Supply the upper 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[0];</p>
+<p>/* Supply the lower 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[1];</p>
+<p>#endif</p>
+<p>/* Place the Wrapper calculated ECC into FWPWRITE_ECC */</p>
+<p>oFwpWriteEccByteAccessor[EI8(0)] = FLASH_CONTROL_REGISTER-&gt;FemuEcc.FEMU_ECC_BITS.EMU_ECC);</p>
+<p>/* Supply the address where ECC is being calculated */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuAddr.u32Register</p>
+<p>= 0x0108;</p>
+<p>#if defined(_LITTLE_ENDIAN)</p>
+<p>/* Supply the lower 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[3];</p>
+<p>/* Supply the upper 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[2];</p>
+<p>#else</p>
+<p>/* Supply the upper 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[2];</p>
+<p>/* Supply the lower 32bit word */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register</p>
+<p>= oFwpWriteDwordAccessor[3];</p>
+<p>#endif</p>
+<p>/* Place the Wrapper calculated ECC into FWPWRITE_ECC */</p>
+<p>oFwpWriteEccByteAccessor[EI8(1)] = FLASH_CONTROL_REGISTER-&gt;FemuEcc.FEMU_ECC_BITS.EMU_ECC);</p>
+<p>/* Set command to &quot;Program&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ProgramData;</p>
+<p>/* Execute the Program command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* re-lock FSM registers to prevent writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x2U;</p>
+<p>9</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><i>Example Usage</i></p>
+<p>www.ti.com</p>
+<p><i><b>3.3</b></i></p>
+<p><i><b>Erasing Operations</b></i></p>
+<p><b>3.3.1</b></p>
+<p><b>Erasing a Single Sector With Bank Erase</b></p>
+<p>The following code segment will</p>
+<p>erase a single Flash sector using the Bank erase command.</p>
+<p><b>NOTE:</b></p>
+<p>The Bank Erase command is not a suspendable operation.</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 1U;</p>
+<p>/* Disable Level 1 Protection */</p>
+<p>/* Enable all sectors of current bank for erase and program.</p>
+<p>For EEPROM banks with more</p>
+<p>than 16 sectors, this must be 0xFFFF */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register = 0xFFFF;</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 0U;</p>
+<p>/* Enable Level 1 Protection */</p>
+<p>/*Unlock FSM registers for writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x5U;</p>
+<p>FLASH_CONTROL_REGISTER-</p>
+<p>&gt;FsmSector.u32Register = 0xFFFE0000;</p>
+<p>/* Disable all sectors except for sector 0 from bank</p>
+<p>operation */</p>
+<p>/* Set command to &quot;Clear the Status Register&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ClearStatus;</p>
+<p>/* Execute the Clear Status command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* Write address to FADDR register.</p>
+<p>This address must be within the bank to be erased */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register = 0x0100U;</p>
+<p>/* Set command to &quot;Program&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_EraseBank;</p>
+<p>/* Execute the Program command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* re-lock FSM registers to prevent writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x2U;</p>
+<p>10</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p>SPNA148–May 2013</p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p>www.ti.com</p>
+<p><i>References</i></p>
+<p><b>3.3.2</b></p>
+<p><b>Erasing a Single Sector With Sector Erase</b></p>
+<p>The following code segment will</p>
+<p>erase a single Flash sector using the Sector erase command.</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 1U;</p>
+<p>/* Disable Level 1 Protection */</p>
+<p>/* Enable all sectors of current bank for erase and program.</p>
+<p>For EEPROM banks with more</p>
+<p>than 16 sectors, this must be 0xFFFF */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register = 0xFFFF;</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register = 0U;</p>
+<p>/* Enable Level 1 Protection */</p>
+<p>/*Unlock FSM registers for writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x5U;</p>
+<p>/* Set command to &quot;Clear the Status Register&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_ClearStatus;</p>
+<p>/* Execute the Clear Status command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* Write address to FADDR register.</p>
+<p>This address must be within the bank to be erased */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register = 0x0100U;</p>
+<p>/* Set command to &quot;Program&quot; */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD = Fapi_EraseSector;</p>
+<p>/* Execute the Program command */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE = 0x15U;</p>
+<p>/* re-lock FSM registers to prevent writing */</p>
+<p>FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register</p>
+<p>= 0x2U;</p>
+<p><b>4</b></p>
+<p><b>References</b></p>
+<p><i>F021 Flash API Reference Guide</i> (SPNU501)</p>
+<p>11</p>
+<p>SPNA148–May 2013</p>
+<p><i>Advanced F021 Flash API Erase/Program Usage</i></p>
+<p><i>Submit Documentation Feedback</i></p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+<h1 style="page-break-before:always; "></h1>
+<p><b>IMPORTANT NOTICE</b></p>
+<p>Texas Instruments Incorporated and its subsidiaries (TI) reserve the right to make corrections, enhancements, improvements and other</p>
+<p>changes to its semiconductor products and services per JESD46, latest issue, and to discontinue any product or service per JESD48, latest</p>
+<p>issue. Buyers should obtain the latest relevant information before placing orders and should verify that such information is current and</p>
+<p>complete. All</p>
+<p>semiconductor products (also referred to herein as “components”) are sold subject to TI’s terms and conditions of sale</p>
+<p>supplied at the time of order acknowledgment.</p>
+<p>TI warrants performance of its components to the specifications applicable at the time of sale, in accordance with the warranty in TI’s terms</p>
+<p>and conditions of sale of semiconductor products. Testing and other quality control</p>
+<p>techniques are used to the extent TI deems necessary</p>
+<p>to support this warranty. Except where mandated by applicable law, testing of all</p>
+<p>parameters of each component is not necessarily</p>
+<p>performed.</p>
+<p>TI assumes no liability for applications assistance or the design of Buyers’</p>
+<p>products. Buyers are responsible for their products and</p>
+<p>applications using TI components. To minimize the risks associated with Buyers’</p>
+<p>products and applications, Buyers should provide</p>
+<p>adequate design and operating safeguards.</p>
+<p>TI does not warrant or represent that any license, either express or implied, is granted under any patent right, copyright, mask work right, or</p>
+<p>other intellectual</p>
+<p>property right relating to any combination, machine, or process in which TI components or services are used. Information</p>
+<p>published by TI regarding third-party products or services does not constitute a license to use such products or services or a warranty or</p>
+<p>endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual</p>
+<p>property of the</p>
+<p>third party, or a license from TI under the patents or other intellectual</p>
+<p>property of TI.</p>
+<p>Reproduction of significant portions of TI information in TI data books or data sheets is permissible only if reproduction is without alteration</p>
+<p>and is accompanied by all</p>
+<p>associated warranties, conditions, limitations, and notices. TI is not responsible or liable for such altered</p>
+<p>documentation. Information of third parties may be subject to additional</p>
+<p>restrictions.</p>
+<p>Resale of TI components or services with statements different from or beyond the parameters stated by TI for that component or service</p>
+<p>voids all</p>
+<p>express and any implied warranties for the associated TI component or service and is an unfair and deceptive business practice.</p>
+<p>TI is not responsible or liable for any such statements.</p>
+<p>Buyer acknowledges and agrees that it is solely responsible for compliance with all</p>
+<p>legal, regulatory and safety-related requirements</p>
+<p>concerning its products, and any use of TI components in its applications, notwithstanding any applications-related information or support</p>
+<p>that may be provided by TI. Buyer represents and agrees that it has all</p>
+<p>the necessary expertise to create and implement safeguards which</p>
+<p>anticipate dangerous consequences of failures, monitor failures and their consequences, lessen the likelihood of failures that might cause</p>
+<p>harm and take appropriate remedial</p>
+<p>actions. Buyer will</p>
+<p>fully indemnify TI and its representatives against any damages arising out of the use</p>
+<p>of any TI components in safety-critical</p>
+<p>applications.</p>
+<p>In some cases, TI components may be promoted specifically to facilitate safety-related applications. With such components, TI’s goal</p>
+<p>is to</p>
+<p>help enable customers to design and create their own end-product solutions that meet applicable functional</p>
+<p>safety standards and</p>
+<p>requirements. Nonetheless, such components are subject to these terms.</p>
+<p>No TI components are authorized for use in FDA Class III (or similar life-critical</p>
+<p>medical</p>
+<p>equipment) unless authorized officers of the parties</p>
+<p>have executed a special</p>
+<p>agreement specifically governing such use.</p>
+<p>Only those TI components which TI has specifically designated as military grade or “enhanced plastic” are designed and intended for use in</p>
+<p>military/aerospace applications or environments. Buyer acknowledges and agrees that any military or aerospace use of TI components</p>
+<p>which have<i><b> not</b></i> been so designated is solely at the Buyer's risk, and that Buyer is solely responsible for compliance with all</p>
+<p>legal</p>
+<p>and</p>
+<p>regulatory requirements in connection with such use.</p>
+<p>TI has specifically designated certain components as meeting ISO/TS16949 requirements, mainly for automotive use. In any case of use of</p>
+<p>non-designated products, TI will</p>
+<p>not be responsible for any failure to meet ISO/TS16949.</p>
+<p><b>Products</b></p>
+<p><b>Applications</b></p>
+<p>Audio</p>
+<p>www.ti.com/audio</p>
+<p>Automotive and Transportation</p>
+<p>www.ti.com/automotive</p>
+<p>Amplifiers</p>
+<p>amplifier.ti.com</p>
+<p>Communications and Telecom</p>
+<p>www.ti.com/communications</p>
+<p>Data Converters</p>
+<p>dataconverter.ti.com</p>
+<p>Computers and Peripherals</p>
+<p>www.ti.com/computers</p>
+<p>DLP® Products</p>
+<p>www.dlp.com</p>
+<p>Consumer Electronics</p>
+<p>www.ti.com/consumer-apps</p>
+<p>DSP</p>
+<p>dsp.ti.com</p>
+<p>Energy and Lighting</p>
+<p>www.ti.com/energy</p>
+<p>Clocks and Timers</p>
+<p>www.ti.com/clocks</p>
+<p>Industrial</p>
+<p>www.ti.com/industrial</p>
+<p>Interface</p>
+<p>interface.ti.com</p>
+<p>Medical</p>
+<p>www.ti.com/medical</p>
+<p>Logic</p>
+<p>logic.ti.com</p>
+<p>Security</p>
+<p>www.ti.com/security</p>
+<p>Power Mgmt</p>
+<p>power.ti.com</p>
+<p>Space, Avionics and Defense</p>
+<p>www.ti.com/space-avionics-defense</p>
+<p>Microcontrollers</p>
+<p>microcontroller.ti.com</p>
+<p>Video and Imaging</p>
+<p>www.ti.com/video</p>
+<p>RFID</p>
+<p>www.ti-rfid.com</p>
+<p>OMAP Applications Processors</p>
+<p>www.ti.com/omap</p>
+<p><b>TI E2E Community</b></p>
+<p>e2e.ti.com</p>
+<p>Wireless Connectivity</p>
+<p>www.ti.com/wirelessconnectivity</p>
+<p>Mailing Address: Texas Instruments, Post Office Box 655303, Dallas, Texas 75265</p>
+<p>Copyright © 2013, Texas Instruments Incorporated</p>
+</body>
+</html>
+{% endraw %}

@@ -1,0 +1,183 @@
+---
+layout: default
+title: DataSheet_TMS570LS0714
+nav_order: 3
+parent: Fee Driver
+---
+{% raw %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta name="generator" content="LibreOffice 24.2.7.2 (Linux)"/>
+  <meta name="created" content="00:00:00"/>
+  <meta name="changed" content="00:00:00"/>
+</head>
+<body>
+<h1></h1>
+<p> </p>
+<p> </p>
+<p><b>Copyright © 2003-2016 Texas Instruments Incorporated.  All rights reserved. </b></p>
+<p><b> </b></p>
+<p>Information in this document is subject to change without notice.  Texas Instruments may have pending </p>
+<p>patent  applications,  trademarks,  copyrights,  or  other  intellectual  property  rights  covering  matter  in  this </p>
+<p>document.  The furnishing of this documents is given for usage with Texas Instruments products only and </p>
+<p>does not give you any license to the intellectual property that might be contained within this document.  </p>
+<p>Texas Instruments makes no implied or expressed warranties in this document and is not responsible for </p>
+<p>the products based from this document. </p>
+<p>` </p>
+<p> </p>
+<p><b>Page 1 of 4 </b></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>Autosar FEE 01.23.02 </p>
+<p>Data Sheet for TMS570LS0714 </p>
+<p>14</p>
+<p>th</p>
+<p> Mar 2016 </p>
+<p> </p>
+<p> </p>
+<p><i><b> </b></i></p>
+<p><i><b> </b></i></p>
+<h1 style="page-break-before:always; "></h1>
+<p>` </p>
+<p> </p>
+<p><b>Page 2 of 4 </b></p>
+<p><b> </b></p>
+<p> </p>
+<p><b>TABLE OF CONTENTS </b></p>
+<p> </p>
+<p><b>1</b></p>
+<p> </p>
+<p><b>Memory FootPrint ......................................................................................... 3</b></p>
+<p> </p>
+<p><b>2</b></p>
+<p> </p>
+<p><b>Performance Numbers on API’s ................................................................... 3</b></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 style="page-break-before:always; "></h1>
+<p>` </p>
+<p> </p>
+<p><b>Page 3 of 4 </b></p>
+<p><b> </b></p>
+<p> </p>
+<p>1 </p>
+<p>Memory FootPrint </p>
+<p> </p>
+<p><b>Modules </b></p>
+<p><b>In Bytes </b></p>
+<p><b>.text </b></p>
+<p><b>.const </b></p>
+<p><b>.bss </b></p>
+<p><b>.data </b></p>
+<p><b> FEE </b></p>
+<p>20692 </p>
+<p>1056 </p>
+<p>1392 </p>
+<p>13 </p>
+<p><b> </b></p>
+<p>Above readings were taken with following compiler settings: </p>
+<p> </p>
+<p>Compiler version : 5.1.6 </p>
+<p>-mv7R4 </p>
+<p>--code_state=32 </p>
+<p>--float_support=VFPv3D16 </p>
+<p>--abi=eabi </p>
+<p>-O2 </p>
+<p>-g </p>
+<p>--</p>
+<p>diag_warning=261 </p>
+<p>--diag_warning=118 </p>
+<p>--diag_warning=225 </p>
+<p>--diag_error=189 </p>
+<p>--</p>
+<p>diag_error=994 --diag_error=551 --display_error_number  --enum_type=packed </p>
+<p>2 </p>
+<p>Performance Numbers on API’s </p>
+<p>  </p>
+<p><b>API </b></p>
+<p><b>Numbers In CPU Cycles @ 160 MHz </b></p>
+<p><b>Ticks </b></p>
+<p><b>Comments </b></p>
+<p><b>TI FEE </b></p>
+<p>Fee_Init() </p>
+<p>2547466 </p>
+<p>Create two active VS, </p>
+<p>one each for   </p>
+<p>EEPROM1 and </p>
+<p>EEPROM2. </p>
+<p>Fee_MainFunction() </p>
+<p>2050 </p>
+<p>Complete Pending </p>
+<p>INIT writes. </p>
+<p>Fee_Write() </p>
+<p>10084 </p>
+<p> </p>
+<p>Fee_MainFunction() </p>
+<p>37012 </p>
+<p>Measure time to </p>
+<p>complete write </p>
+<p>job.(block size = 8. </p>
+<p>Total 40 bytes) </p>
+<p>Fee_MainFunction() </p>
+<p>751 </p>
+<p>When no jobs are </p>
+<p>pending. </p>
+<p>Fee_Read() </p>
+<p>3679 </p>
+<p> </p>
+<p>Fee_MainFunction() </p>
+<p>1608 </p>
+<p>Measure time to </p>
+<p>complete Read job(8 </p>
+<p>bytes) </p>
+<p>Fee_InvalidateBlock() </p>
+<p>1230 </p>
+<p> </p>
+<p>Fee_MainFunction() </p>
+<p>2035 </p>
+<p>Measure time to </p>
+<p>complete Invalidate </p>
+<p>job. </p>
+<p>Fee_EraseImmediateBlock() </p>
+<p>1514 </p>
+<p> </p>
+<p>Fee_MainFunction() </p>
+<p>2041 </p>
+<p>Measure time to </p>
+<p>complete </p>
+<h1 style="page-break-before:always; "></h1>
+<p>` </p>
+<p> </p>
+<p><b>Page 4 of 4 </b></p>
+<p><b> </b></p>
+<p> </p>
+<p>EraseImmediate job. </p>
+<p>Fee_Cancel() </p>
+<p>318 </p>
+<p> </p>
+<p>Fee_GetJobResult() </p>
+<p>209 </p>
+<p> </p>
+<p>Fee_GetVersionInfo( ) </p>
+<p>73 </p>
+<p> </p>
+<p>Fee_GetStatus( ) </p>
+<p>303 </p>
+<p> </p>
+<p> </p>
+<p><b>Note: </b> For  above  readings,  4  physical  sectors,  each  of  4K  were  combined  to  one  virtual </p>
+<p>sector forming 16K. Two EEPROM’s, each using two 16K virtual sectors. </p>
+<p> </p>
+</body>
+</html>
+{% endraw %}
